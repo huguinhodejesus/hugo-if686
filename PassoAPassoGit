@@ -1,0 +1,15 @@
+Passo a Passo para criar um repositório git:
+
+1 - Vá para um local no seu computador via terminal com o comando cd
+2 - Crie um repositório git: git clone (DIGITE_AQUI_O_SITE_DO_SEU_REPOSITORIO_GITHUB)
+
+Passo a Passo para colocar arquivos no github:
+
+1 - Vá para onde o repositório foi criado utilizando o comando: cd (DIGITE_O_CAMINHO_AQUI)
+2 - Adicione na sua pasta local o arquivo que quer adicionar no github 
+3 - Adicione o arquivo na sua área de preparação com o comando: git add (DIGITE_AQUI_O_SEU_ARQUIVO)
+4 - Você faz um commit, que leva os arquivos como eles estão na sua área de preparação 
+    e os armazena permanentemente no seu diretório Git: git commit -m "(DIGITE_AQUI_UM_COMENTARIO_SOBRE_SEU_COMMIT)"
+5 - Rode o seguinte comando para enviar o seu trabalho para o sevidor: git push origin master
+6 - insira o seu login do github
+7 - insira a sua senha do github
