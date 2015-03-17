@@ -1,0 +1,8 @@
+--venda :: Int -> Int --Função qualquer para indicar que a venda na semana n foi n+1
+venda n = (n+1)
+
+--vendaS:: Int -> Int -> Int  --Função que dado um valor s e um número de semanas n, retorna quantas semanas
+vendaS _ 0 = 0              --de 0 a n tiveram vendas iguais a s.
+vendaS s n
+        | (venda n) == s = (1 + (vendaS s (n-1)))
+        | otherwise = (vendaS s (n-1))
