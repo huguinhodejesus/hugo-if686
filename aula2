@@ -1,0 +1,20 @@
+double :: [Int] -> [Int]
+double [] = []
+double (x:xs) = [(x*2)] ++ (double xs)
+
+member :: [Int] -> Int -> Bool
+member [] y = False
+member (x:xs) y | (x==y) = True
+                | otherwise = member (xs) y
+				
+digits :: String -> String
+digits [] = []
+digits (x:xs) | (isDigit 'x') = [x] ++ digits (xs)
+              | otherwise = digits (xs)
+isDigit :: Char -> Bool
+isDigit c =  (c >= '0' && c <= '9')
+
+sumPairs :: [Int] -> [Int] -> [Int]
+sumPairs l [] = l
+sumPairs [] l = l
+sumPairs (x:xs) (y:ys) = [(x+y)] ++ (sumPairs (xs) (ys))
