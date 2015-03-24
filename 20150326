@@ -37,3 +37,16 @@ put i e ie (a:as) | (i>(length (a:as) - 1)) = (hashOrd ie (a:as)) ++ [e]
 troca:: Int -> Int -> [Int] -> [Int]
 troca i e (a:as) | (i==(0)) = e:(as)
                  | otherwise = a:troca (i-1) e as
+
+remove:: Int -> Int -> [Int] -> [Int]
+remove i ie (a:as) | (i>(length (a:as) - 1)) = (hashOrd ie (a:as)) ++ [0]
+                   | (i<0) = [0] ++ (hashOrd ie (a:as))
+                   | otherwise = troca i 0 (hashOrd ie (a:as))
+
+--Executando--
+
+--print (hashOrd 1 [6,4,1,3,5,2])
+--print (get 3 1 [6,4,1,3,5,2])
+--print (hasKey 6 [6,4,1,3,5,2])
+--print (put 3 7 1 [6,4,1,3,5,2])
+--print (remove 3 1 [6,4,1,3,5,2])
