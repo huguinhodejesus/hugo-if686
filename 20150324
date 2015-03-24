@@ -39,7 +39,7 @@ pai 1 (a:as) = a
 pai x (a:as) = pegaElemento (div x 2) (a:as)
  
 swap :: Int -> Int -> [Int] -> [Int]
-swap x1 x2 l =  inicio x1 l ++ [pegaElemento x2 l] ++ meio x1 x2 l ++ [pegaElemento x1 l] ++ fim x2 l
+swap x1 x2 l =  antes x1 l ++ [pegaElemento x2 l] ++ entre x1 x2 l ++ [pegaElemento x1 l] ++ depois x2 l
  
 heap :: Int -> [Int] -> [Int]
 heap x l
@@ -47,19 +47,19 @@ heap x l
     | pegaElemento x l <=  pai x l = heap (x + 1) l
     | otherwise = heap (div x 2) (swap (div x 2) x l)
  
-inicio :: Int -> [Int] -> [Int]
-inicio 1 l = []
-inicio x (a:as) = a : inicio (x - 1) as
+antes :: Int -> [Int] -> [Int]
+antes 1 l = []
+antes x (a:as) = a : antes (x - 1) as
  
-meio :: Int -> Int -> [Int] -> [Int]
-meio p f (a:as)
-    | p >= 1 = meio (p - 1) (f-1) as
-    | f > 1 = a : meio p (f-1) as
+entre :: Int -> Int -> [Int] -> [Int]
+entre p f (a:as)
+    | p >= 1 = entre (p - 1) (f-1) as
+    | f > 1 = a : entre p (f-1) as
     | otherwise = []
  
-fim :: Int -> [Int] -> [Int]
-fim x (a:as)
-    | x > 1 = fim (x - 1) as
+depois :: Int -> [Int] -> [Int]
+depois x (a:as)
+    | x > 1 = depois (x - 1) as
     | otherwise = as
  
 sort :: [Int] -> [Int]
