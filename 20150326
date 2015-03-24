@@ -1,0 +1,30 @@
+hash:: Int -> [Int] -> [(Int,Int)]
+hash _ [] = []
+hash i (x:xs) = [(x,hashMap x i (x:xs))] ++ hash i xs
+
+hashMap:: Int -> Int -> [Int] -> Int
+hashMap x i l = mod (x+i) (length l)
+
+quicksort::[(Int,Int)] -> [Int]
+quicksort [] = []
+quicksort [(x,y)] = [x]
+quicksort ((a,b):xs) = quicksort [(x,y)|(x,y) <- xs,y < b] ++ [a] ++ quicksort [(x,y)|(x,y) <- xs,y >= b]
+
+hashOrd :: Int -> [Int] -> [Int]
+hashOrd _ [] = []
+hashOrd i l = quicksort (hash i l)
+
+getN:: Int -> [Int] -> Int
+getN _ [] = 1
+getN x [y] = 0
+getN e (a:as) | (e == a) = 0
+              | otherwise = (1 + (getN e as))
+
+get:: Int -> Int -> [Int] -> (Int,Int)
+get e i (a:as) = (e,getN e (hashOrd i (a:as)))
+
+hasKey:: Int -> [Int] -> Bool
+hasKey _ [] = False
+hasKey i l | (i <0) = False
+           | (i<= (length l) -1) = True
+           | otherwise = False
