@@ -28,3 +28,12 @@ hasKey _ [] = False
 hasKey i l | (i <0) = False
            | (i<= (length l) -1) = True
            | otherwise = False
+           
+put:: Int -> Int -> Int -> [Int] -> [Int]
+put i e ie (a:as) | (i>(length (a:as) - 1)) = (hashOrd ie (a:as)) ++ [e]
+                  | (i<0) = [e] ++ (hashOrd ie (a:as))
+                  | otherwise = troca i e (hashOrd ie (a:as))
+
+troca:: Int -> Int -> [Int] -> [Int]
+troca i e (a:as) | (i==(0)) = e:(as)
+                 | otherwise = a:troca (i-1) e as
