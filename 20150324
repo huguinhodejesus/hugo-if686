@@ -19,7 +19,7 @@ mergesort [x] = [x]
 mergesort (xs) =        let (a,b) = split xs (div (length xs) 2)
 					in merge (mergesort a) (mergesort b)
 					
--- Complexidade do nosso mergeSort: log n significa log do tamanho da lista na base 2, ex: log 8 = 3 porque 3^2=8.
+-- Complexidade mergeSort: log n significa log do tamanho da lista na base 2, ex: log 8 = 3 porque 3^2=8.
 -- Se a lista tiver n elementos vamos dividir essa lista (fase split) log n vezes, exemplo: [8,7,6,5,4,3,2,1] 
 -- vai virar [8,7,6,5], [4,3,2,1], depois [8,7], [6,5] , [4,3], [2,1], depois [8],[7],[6],[5],[4],[3],[2],[1],
 -- ou seja: foram necessários 3 splits ou melhor: log n splits. Daí fazemos os merges que vão comparar os elementos 1 a 1,
@@ -28,7 +28,7 @@ mergesort (xs) =        let (a,b) = split xs (div (length xs) 2)
 
 ---------------------------------Fim de Mergesort---------------------------------------
 
------------------------------------------------------------------------------Heapsort-----------------------------------------------------------------------------------------------------
+----------------------------------------------------Heapsort------------------------------------------------------------------
 
 tamanho :: [Int] -> Int
 tamanho [] = 0
@@ -74,4 +74,9 @@ heapSort :: [Int] -> [Int]
 heapSort [] = []
 heapSort l = sort (heap 1 l)
 
--------------------------------------------------------------------------------Fim de Heapsort----------------------------------------------------------------------------------------------
+-- Complexidade do heapSort: Primeiro se constrói um heap em tempo log n pois o heap é uma árvore, colocando os maiores
+-- elementos em cima dos menores elementos (Árvores tem altura log n), exemplo: uma árvore com 8 elementos tem altura 3.
+-- Em seguida vai se tirando a raiz do heap a cada iteração, o maior valor já vai pro final da lista q será retornada
+-- e o heap eh organizado novamente em tempo log n, e assim vai n vezes porque são n elementos, logo a complexidade é (n log n)
+
+-------------------------------------------------------Fim de Heapsort--------------------------------------------------------
