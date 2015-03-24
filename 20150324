@@ -80,3 +80,43 @@ heapSort l = sort (heap 1 l)
 -- e o heap eh organizado novamente em tempo log n, e assim vai n vezes porque são n elementos, logo a complexidade é (n log n)
 
 -------------------------------------------------------Fim de Heapsort--------------------------------------------------------
+
+
+--------------------------Aqui começam os exercícios da aula 03---------------------------------------
+
+menorMaior:: Int -> Int -> Int -> (Int, Int)
+menorMaior x y z | (x <= y), (x<=z), (y<=z) = (x,z)
+                 | (x <= y), (x<=z), (z<=y) = (x,y)
+				 | (y <= x), (y<=z), (x<=z) = (y,z)
+				 | (y <= x), (y<=z), (z<=x) = (y,x)
+				 | (z <= x), (x<=y), (y<=x) = (z,x)
+				 | (z <= x), (x<=y), (x<=y) = (z,y)
+
+ordenaTripla:: (Int,Int,Int) -> (Int,Int,Int)
+ordenaTripla (x,y,z) | (x <= y), (x<=z), (y<=z) = (x,y,z)
+                     | (x <= y), (x<=z), (z<=y) = (x,z,y)
+				     | (y <= x), (y<=z), (x<=z) = (y,x,z)
+				     | (y <= x), (y<=z), (z<=x) = (y,z,x)
+				     | (z <= x), (x<=y), (y<=x) = (z,y,x)
+				     | (z <= x), (x<=y), (x<=y) = (z,x,y)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
