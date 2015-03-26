@@ -80,3 +80,20 @@ inter xs ls = [ el | el <- (union xs ls), (member el xs), (member el ls) ]
 
 diff :: (Eq a) => [a] -> [a] -> [a]
 diff xs ls = [ el | el <- (inter xs xs), not $ member el ls]
+
+--Aqui começam os exercícios feitos em aula
+
+pegar:: [Int] -> Int -> [Int]
+pegar [] _ = []
+pegar (a:as) n | n < 1 = []
+			   | otherwise = [a] ++ (pegar as (n-1))
+
+elimina:: [Int] -> Int -> [Int]
+elimina [] _ = []
+elimina (a:as) n | n < 1 = (a:as)
+                 | otherwise = (elimina as (n-1))
+
+pegarWhile:: (t -> Bool) -> [t] -> [t]
+pegarWhile _ [] = []
+pegarWhile predicado (a:as) | (predicado a) = [a] ++ (pegarWhile predicado as)
+						    | otherwise = []
