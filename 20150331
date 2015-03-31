@@ -14,3 +14,31 @@
 --difícil de ser analisado e de se descobrir erros com relação aos tipos que estão sendo usados, em Java a plataforma acusa logo
 --qual o tipo que tal função pode receber.
 
+--Questao 03
+
+--search:: (Eq x) => x -> grafo -> grafo
+--search _ [] = []
+--search x (a:as) | (member x (a:as)) = if (x==a) then [a]
+--			                     else [a]++ (search x as)
+--			| otherwise = []
+
+--member :: (Eq a) => a -> [a] -> Bool
+--member _ [] = False
+--member x (l:ls)
+--	| x == l = True
+--	| otherwise = member x ls
+
+--grafo:: [x] -> [x]
+--grafo l = l
+
+search:: Int -> [Int] -> [Int]
+search _ [] = []
+search x (a:as) | (member x (a:as)) = if (x==a) then [a]
+			                     else [a]++ (search x as)
+			| otherwise = []
+
+member :: (Eq a) => a -> [a] -> Bool
+member _ [] = False
+member x (l:ls)
+	| x == l = True
+	| otherwise = member x ls
