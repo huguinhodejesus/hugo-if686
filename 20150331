@@ -1,0 +1,16 @@
+--Questão 01
+
+--Polimorfismo significa "muitas formas", é o termo definido em linguagens orientadas a objeto, como por exemplo Java.
+--No Polimorfismo temos dois tipos:
+--1) Polimorfismo Estático ou Sobrecarga
+--2) Polimorfismo Dinâmico ou Sobreposição
+--O Polimorfismo de sobrecarga se dá quando temos a mesma operação implementada várias vezes na mesma classe. 
+--A escolha de qual operação será chamada depende da assinatura dos métodos sobrecarregados
+--Acredito que em Haskell temos a vantagem de não precisar assinar métodos, os tipos das variáveis ou funções 
+--são pré-estabelecidos e as funções que vão se utilizar desses tipos são impleentados comumente sem nenhum recurso adicional
+--enquanto que em Java todas as funções que utilizam o objeto polimórfico precisam definir qual seu tipo, e geralmente em Java
+--há muitas funções se relacionando de modo que o tipo que é passado de uma pra outra precisa estar definido.
+--A desvantagem de se utilizar polimorfismo de sobrecarga em Haskell é que os objetos ficam mais soltos e o registro fica mais
+--difícil de ser analisado e de se descobrir erros com relação aos tipos que estão sendo usados, em Java a plataforma acusa logo
+--qual o tipo que tal função pode receber.
+
