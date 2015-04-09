@@ -25,3 +25,18 @@ graphProf Nil c = False
 graphProf (No t a b) c
 	| c == t = True
 	| otherwise = graphProf b c
+
+--Exercícios feitos em sala
+
+member :: (Eq a) => a -> [a] -> Bool
+member _ [] = False
+member x (l:ls)
+	| x == l = True
+	| otherwise = member x ls
+
+union :: (Eq a) => [a] -> [a] -> [a]
+union xs [] = xs
+union [] ls = ls
+union (x:xs) ls
+	| (member x ls) = union xs ls
+	| otherwise = union xs $ [x] ++ ls
