@@ -28,11 +28,8 @@ graphProf (No t a b) c
 
 --Exercícios feitos em sala
 
-member :: (Eq a) => a -> [a] -> Bool
-member _ [] = False
-member x (l:ls)
-	| x == l = True
-	| otherwise = member x ls
+member:: (Eq a) => a -> [a] -> Bool
+member a l = foldr (||) False (map (==a) l)
 
 union :: (Eq a) => [a] -> [a] -> [a]
 union xs [] = xs
