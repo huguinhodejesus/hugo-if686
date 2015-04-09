@@ -1,19 +1,19 @@
 --Questao 01
 
-type Ponto = Int
-type Peso = Int
-type Aresta = (Ponto,Ponto)
-type Grafo = [(Aresta,Peso)]
+--type Ponto = Int
+--type Peso = Int
+--type Aresta = (Ponto,Ponto)
+--type Grafo = [(Aresta,Peso)]
 
-data Graph = Grafo deriving (Eq, Ord, Show)
+--data Graph = Grafo deriving (Eq, Ord, Show)
 
---data List t = Nill
---   | Cons (t, Int) (List t)
---  	deriving (Show, Eq)
+data List t = Nill
+   | Cons (t, Int) (List t)
+  	deriving (Show, Eq)
 
---data Graph t = Nil
---	| No t (List t) (Graph t)
---		deriving (Show, Eq)
+data Graph t = Nil
+	| No t (List t) (Graph t)
+		deriving (Show, Eq)
 
 --exemplo
 -- let a = No 5 (Cons (8,2) Nill ) (No 6 (Cons (4,2) Nill) Nil)
