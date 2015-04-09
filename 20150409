@@ -1,0 +1,10 @@
+--Questao 01
+
+type Ponto = Int
+type Peso = Int
+type Aresta = (Ponto,Ponto)
+type Grafo = [(Aresta,Peso)]
+
+data Graph = Grafo deriving (Eq, Ord, Show)
+
+--Questao 02
