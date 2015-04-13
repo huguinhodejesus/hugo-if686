@@ -1,0 +1,10 @@
+--Questao 2
+
+foldGraph:: Eq a => (a->a) -> a -> Graph
+foldGraph f z []     = z
+foldGraph f z (x:xs) = f x (foldGraph f z xs) 
+
+mapGraph: Eq a => (a -> b) -> [Graph] -> [b]
+mapGraph f [] = []
+mapGraph f x = f x
+mapGraph f (x:xs) = f x (mapGraph f xs)
