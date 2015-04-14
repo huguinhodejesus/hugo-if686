@@ -59,3 +59,5 @@ joker f ((Node n l r):xs)
 --f l n = filter (pred l) where pred n = (foldr (+) 0 n) >=n
 
 f2 l n = filter (\x -> ((foldr (+) 0 x) >= n)) l
+
+mapfilter:: (Eq a,b) => ((a->b) -> [a] -> [b]) -> ((a -> Bool) -> [a] -> [a]) 
