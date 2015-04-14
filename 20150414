@@ -53,3 +53,9 @@ joker  _ [] = NilT
 joker f ((Node n l r):xs) 
 	| f n = joker f xs
 	| otherwise = (Node n l r)  
+	
+--Exercícios feitos na aula
+
+f l n = filter pred l where pred n = (foldr (+) O n) >=n
+
+f2 l n = filter (\x -> ((foldr (+) O x) >= n)) l
