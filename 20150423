@@ -1,0 +1,125 @@
+--Aula 26/03
+
+take1 :: Int -> [a] -> [a]
+take1 _ [] = []
+take1 a (x:xs)
+	| a == 0 = [] 
+	| otherwise = x:take(a-1) xs
+
+drop1 :: Int -> [a] -> [a]
+drop1 _ [] = []
+drop1 a (x:xs) 
+	| a == 0 = x:drop1 a xs
+	| otherwise = drop1 (a-1) xs
+	
+
+takewhile :: (a->Bool) -> [a] -> [a]
+takewhile _ [] = []
+takewhile f (x:xs)
+	| f x == True = x:takewhile f xs
+	| otherwise = []
+	
+
+dropwhile :: (a->Bool) -> [a] -> [a]
+dropwhile _ [] = []
+dropwhile f (x:xs) 
+	| f x == True =  dropwhile f xs
+	| otherwise = (x:xs)
+	
+	
+quicksort :: Ord t => [(t,t)]-> [(t,t)]
+quicksort [] = []
+quicksort (x:xs) = ( quicksort [a | a <- xs , fst (a) <= fst (x) ]) ++ [x] ++ (quicksort [ a | a <- xs ,  fst (a) > fst (x)])
+
+quicksort1 :: Ord t => [t]-> [t]
+quicksort1 [] = []
+quicksort1 (x:xs) = ( quicksort1 [a | a <- xs , fst (a) <= fst (x) ]) ++ [x] ++ (quicksort1 [ a | a <- xs ,  fst (a) > fst (x)])
+
+
+agrupar :: Eq t =>  [[t]] -> [(t,Int)]
+agrupar [] = []
+agrupar l =  tiraRep (tupl (aux l))
+
+aux :: [[t]] -> [t]
+aux [] = []
+aux (x:xs)	=  x++aux xs
+
+tupl :: Eq t => [t] -> [(t,Int)]
+tupl [] = []
+tupl (x:xs) = [(x,(check x xs))] ++ tupl xs
+
+check :: Eq t => t -> [t] -> Int
+check a [] = 1
+check a (x:xs) 
+	| a == x = 1 + check a xs
+	| otherwise = check a xs
+
+tiraRep :: Eq t => [(t,Int)] -> [(t,Int)]
+tiraRep ((a,b):[]) = [(a,b)]
+tiraRep [] = []
+tiraRep ((a,b):xs) = [(a,b)] ++ tiraRep (checkDup (a,b) xs)
+
+checkDup :: Eq t => (t,Int) -> [(t,Int)] -> [(t,Int)]
+checkDup _ [] = []
+checkDup (a,b) ((c,d):xs) 
+	| a == c = checkDup (a,b) xs
+	| otherwise = [(c,d)] ++ checkDup (a,b) xs	
+
+
+-- ex: agrupar [“Fernando”, “Castor”]
+
+--Aula 07/04
+
+depth :: Tree t -> Int
+depth NilT = 0
+depth (No n esq dir) = 1 + max (depth esq) (depth dir)
+
+collapse :: Tree t -> [t]
+collapse NilT = []
+collapse (No n esq dir) = collapse esq ++ [n] ++ collapse dir 
+
+dfs :: (Show a) => (Tree a) -> String
+dfs tree = p $ f tree
+	where
+            f NilT = []
+            f (No n esq dir) = n : (f esq) ++ (f dir)
+            p [x] = (show x) ++ "."
+            p (x:xs) = (show x) ++ ", " ++ p xs
+
+
+
+
+bfs :: (Eq t) => Tree t -> t -> Bool
+bfs NilT _ = False
+bfs (Node n l r) x
+   | n == x = True
+   | otherwise = False || bfs l x|| bfs r x
+
+mapTree :: (t -> u) -> Tree t -> Tree u
+mapTree _ NilT = NilT
+mapTree f (Node n l r) = (Node (f n) (mapTree f l) (mapTree f r))
+
+--Aula 09/04
+
+import Data.Char
+
+raiz :: [Float] -> [Float]
+raiz [] = []
+raiz l = map sqrt l
+
+--import Data.Char.Ord
+
+position  :: Char -> Int
+position a = (ord a) - 96
+
+posicaoAlfabeto :: String -> [Int]
+posicaoAlfabeto s = map position s
+
+map2 :: (t -> u) -> [t] -> [u]
+map2 f [] = []
+map2 f l = [f a | a <- l]
+
+fold :: (t -> t -> t) -> [t] -> t
+fold f [a] = a
+fold f (a:as) = f a (fold f as)
+
