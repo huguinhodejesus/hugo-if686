@@ -1,0 +1,140 @@
+--------------------------------------------map . foldr---------------------------------------------------------
+
+Achando a precedência para saber quem está sendo aplicado a quem.
+Operadores infixados tem maior precedência. Logo map e foldr são parâmetros da função (.)
+
+Tipos
+(.) :: (b -> c) -> (a -> b) -> a -> c
+map :: (d -> e) -> [d] -> [e]
+foldr :: (f -> g -> g) -> g -> [f] -> g
+
+Logo
+(b->c) recebe map
+(d->e) recebe foldr
+
+Achando
+a->c
+
+Já que aplicamos dois parâmetros á função "." retiramos 
+(b->c)->(d->e) do nosso "tipo final"
+
+b = (d->e) [primeiro parâmetro de map]
+c = [d]->[e] [resto de map]
+a = (f->g->g) [primeiro de foldr]
+b = g->[f]->g [resto de foldr]
+
+d->e de b está muito genérico e podem ser escritos em função de g e f.
+Como "d" e "e" também aparecem na definição de c temos que tratar isso.
+
+(d->e) = g->[f]->g (1ª e 4ª equações. b = ...)
+Logo
+d = g
+e = [f]->g
+substituindo em c = [d]->[e]
+c = [g]->[[f]->g]
+
+como a gente queria a->c
+
+(f->g->g)->[g]->[[f]->g]
+
+--------------------------------------------map . foldr---------------------------------------------------------
+
+-----------------------------------------foldr (+).(.).map------------------------------------------------------
+
+Os tipos
+
+(.) :: (y -> q) -> (x -> y) -> x -> q
+foldr (+) :: Num d => d -> [d] -> d
+
+Simplificando
+
+foldr (+):
+ u - d
+ v - [d] -> d
+ 
+(.):
+ t - (y -> q)
+ u - (x -> y) -> x -> q
+
+Calculando
+u:
+ d = (x -> y) -> x -> q
+
+Logo
+
+foldr (+).(.) :: (Num (x -> y) -> x -> q) => (y -> q) -> [(x -> y) -> x -> q] -> (x -> y) -> x -> q
+map :: (a -> b) -> [a] -> [b]
+
+foldr (+).(.):
+ u - (y -> q)
+ v - [(x -> y) -> x -> q] -> (x -> y) -> x -> q
+
+map:
+ t - (a -> b)
+ u - [a] -> [b]
+
+u:
+ y = [a]
+ q = [b]
+
+Resposta
+
+foldr (+).(.).map :: (Num (x -> [a]) -> x -> [b]) => (a -> b) -> [(x -> [a]) -> x -> [b]] -> (x -> [a]) -> x -> [b]
+
+-----------------------------------------foldr (+).(.).map------------------------------------------------------
+
+------------------------------------(\x y z -> foldr z x y).map-------------------------------------------------
+
+Tipos
+
+(\x y z -> foldr z x y) :: b -> [a] -> (a -> b -> b) -> b
+map :: (e -> d) -> [e] -> [d]
+
+(\x y z -> foldr z x y):
+ u - b
+ v - [a] -> (a -> b -> b) -> b
+
+map:
+ t - (e -> d)
+ u - [e] -> [d]
+
+Cálculo
+
+u:
+ b = [e] -> [d]
+
+Resposta
+
+(\x y z -> foldr z x y).map :: (e -> d) -> [a] -> (a -> ([e] -> [d]) -> [e] -> [d]) -> [e] -> [d]
+
+------------------------------------(\x y z -> foldr z x y).map-------------------------------------------------
+
+-------------------------map.((.) (foldr (++) (foldr (++) [] [[1], [2]])))--------------------------------------
+
+Tipos
+
+foldr (++) [] [[1], [2]] :: (Num a) => [a]
+foldr (++) (foldr (++) [] [[1], [2]]) :: (Num a) => [[a]] -> [a]
+
+map :: (c -> d) -> [c] -> [d]
+(.) (foldr (++) (foldr (++) [] [[1], [2]])) :: (Num a) => (b -> [[a]]) -> b -> [a]
+
+map:
+ u - (c -> d)
+ v - [c] -> [d]
+
+((.) (foldr (++) (foldr (++) [] [[1], [2]]))):
+ t - (b -> [[a]])
+ u - b -> [a]
+
+Calculando
+
+u:
+ c = b
+ d = [a]
+
+Resposta
+
+map.((.) (foldr (++) (foldr (++) [] [[1], [2]]))) :: (Num a) => (b -> [[a]]) -> [b] -> [[a]]
+
+-------------------------map.((.) (foldr (++) (foldr (++) [] [[1], [2]])))--------------------------------------
