@@ -1,0 +1,56 @@
+--Questao 01
+
+hash:: Int -> [Int] -> [(Int,Int)]
+hash _ [] = []
+hash i (x:xs) = [(x,hashMap x i (x:xs))] ++ hash i xs
+
+hashMap:: Int -> Int -> [Int] -> Int
+hashMap x i l = mod (x+i) (length l)
+
+quicksort::[(Int,Int)] -> [Int]
+quicksort [] = []
+quicksort [(x,y)] = [x]
+quicksort ((a,b):xs) = quicksort [(x,y)|(x,y) <- xs,y < b] ++ [a] ++ quicksort [(x,y)|(x,y) <- xs,y >= b]
+
+hashOrd :: Int -> [Int] -> [Int]
+hashOrd _ [] = []
+hashOrd i l = quicksort (hash i l)
+
+getN:: Int -> [Int] -> Int
+getN _ [] = 1
+getN x [y] = 0
+getN e (a:as) | (e == a) = 0
+              | otherwise = (1 + (getN e as))
+
+get:: Int -> Int -> [Int] -> (Int,Int)
+get e i (a:as) = (e,getN e (hashOrd i (a:as)))
+
+hasKey:: Int -> [Int] -> Bool
+hasKey _ [] = False
+hasKey i l | (i <0) = False
+           | (i<= (length l) -1) = True
+           | otherwise = False
+           
+put:: Int -> Int -> Int -> [Int] -> [Int]
+put i e ie (a:as) | (i>(length (a:as) - 1)) = (hashOrd ie (a:as)) ++ [e]
+                  | (i<0) = [e] ++ (hashOrd ie (a:as))
+                  | otherwise = troca i e (hashOrd ie (a:as))
+
+troca:: Int -> Int -> [Int] -> [Int]
+troca i e (a:as) | (i==(0)) = e:(as)
+                 | otherwise = a:troca (i-1) e as
+
+remove:: Int -> Int -> [Int] -> [Int]
+remove i ie (a:as) | (i>(length (a:as) - 1)) = (hashOrd ie (a:as)) ++ [0]
+                   | (i<0) = [0] ++ (hashOrd ie (a:as))
+                   | otherwise = troca i 0 (hashOrd ie (a:as))
+                   
+--Questao 02
+
+func1 st = let st
+func2 st = [ if c `elem` [0..'9] then "Nothing" else c | c <- st]
+func3 st = [ if (c == "Nothing") then "Nothing" else (toUpper c) | c <- (func1 st)]
+
+func4:: [Char] -> [Char]
+func4 [] = " "
+func4 (s:st) = [s ++ " " ++ func st]
