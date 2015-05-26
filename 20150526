@@ -1,4 +1,6 @@
--- Exercícios da Aula
+// Exercícios da Aula
+
+//Exercício 1
 
 public class ImprimirNumeros extends Thread{
 
@@ -60,3 +62,55 @@ public class ImprimirNumeros extends Thread{
 	}
 
 }
+
+//Exercício 2
+
+import java.util.Scanner;
+
+public class Contador extends Thread{
+	 
+	String nome;
+	int limite;
+	
+	public Contador(String nome, int limite){
+		this.nome = nome;
+		this.limite = limite;
+	}
+	
+	public void run(){
+		
+		int n=1;
+		while (n<limite+1){
+		System.out.println(nome+ ": "+n);
+		n++;
+		
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		System.out.println("Escolha o limite da contagem: ");
+		Scanner scanner = new Scanner( System.in );
+		int limite = scanner.nextInt();
+		
+		Thread i = new Contador("Contador 1",limite);
+		Thread ii = new Contador("Contador 2",limite);
+		
+		
+		i.start();
+	//	try{
+	//		i.join();
+	//	}catch (InterruptedException ie){
+	//		System.out.println("Erro");
+	//	}
+		ii.start();
+		
+		
+	}
+
+}
+
+//Por que as saídas das threads se misturam?
+//Porque cada uma possui seu próprio valor n como atributo e funcionam ao mesmo tempo.
+
+
