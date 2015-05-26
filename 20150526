@@ -1,0 +1,62 @@
+-- Exercícios da Aula
+
+public class ImprimirNumeros extends Thread{
+
+	long n = 1000000000;
+	
+	public void run(){
+		
+		while (n<2000000001){
+		System.out.println(n);
+		n++;
+		
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		Thread i = new ImprimirNumeros();
+		Thread ii = new ImprimirNumeros();
+		Thread iii = new ImprimirNumeros();
+		Thread iv = new ImprimirNumeros();
+		Thread v = new ImprimirNumeros();
+		Thread vi = new ImprimirNumeros();
+		Thread vii = new ImprimirNumeros();
+		Thread viii = new ImprimirNumeros();
+		Thread ix = new ImprimirNumeros();
+		Thread x = new ImprimirNumeros();
+		Thread xi = new ImprimirNumeros();
+		Thread xii = new ImprimirNumeros();
+		Thread xiii = new ImprimirNumeros();
+		Thread xiv = new ImprimirNumeros();
+		Thread xv = new ImprimirNumeros();
+		Thread xvi = new ImprimirNumeros();
+		Thread xvii = new ImprimirNumeros();
+		Thread xviii = new ImprimirNumeros();
+		Thread xix = new ImprimirNumeros();
+		Thread xx = new ImprimirNumeros();
+		
+		i.start();
+		ii.start();
+		iii.start();
+		iv.start();
+		v.start();
+		vi.start();
+		vii.start();
+		viii.start();
+		ix.start();
+		x.start();
+		xi.start();
+		xii.start();
+		xiii.start();
+		xiv.start();
+		xv.start();
+		xvi.start();
+		xvii.start();
+		xviii.start();
+		xix.start();
+		xx.start();
+		
+	}
+
+}
