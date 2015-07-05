@@ -1,0 +1,62 @@
+
+public class Banheiro{
+	
+	public static void main(String[] args) {
+	
+		Homem h1 = new Homem();
+		Mulher m1 = new Mulher();
+		
+		h1.start();
+		m1.start();
+	}
+	
+}
+
+public class Homem extends Thread{
+		
+		private boolean ocupadoH;
+		private boolean ocupadoM;
+		
+		public void run(){
+				if(!ocupadoM){
+				entrarHomem();
+				}
+		}
+		
+		public void entrarHomem(){
+			ocupadoH = true;
+			System.out.println("Homem entrou no banheiro.");
+			sairHomem();
+		}
+		
+		public void sairHomem(){
+			
+			System.out.println("Homem saiu do banheiro.");
+			
+		}
+	}
+
+
+public class Mulher extends Thread{
+		
+		private boolean ocupadoH;
+		private boolean ocupadoM;
+		
+		public void run(){
+				if(!ocupadoH){
+				entrarMulher();
+				}
+		}
+		
+		public void entrarMulher(){
+			ocupadoM = true;
+			System.out.println("Mulher entrou no banheiro.");
+			sairMulher();
+		}
+		
+		public void sairMulher(){
+			
+			System.out.println("Mulher saiu do banheiro.");
+			
+		}
+	}
