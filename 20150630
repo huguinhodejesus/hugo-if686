@@ -1,235 +1,85 @@
 
 //1
 
-public class Trabalho13 extends Thread{
-	
-	int numero;
-	int thread;
-	
-	public Trabalho13(int numero, int thread){
-		numero = this.numero;
-		thread = this.thread;
-	}
-	public void ObterFicha(){
-		while(numero<1000){
-		//	synchronized(this){
-			numero++;
-			System.out.println("Obtida ficha "+numero+ " pela Thread "+thread);	
-		//	}
-		}				
-	}
-	
-	public void run(){
-			ObterFicha();
-	}
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-	public static void main(String[] args) {
+public class Trabalho13 {
 	
-		Trabalho13 t1 = new Trabalho13(0,1);
-		Trabalho13 t2 = new Trabalho13(0,2);
-		Trabalho13 t3 = new Trabalho13(0,3);
-		Trabalho13 t4 = new Trabalho13(0,4);
-		Trabalho13 t5 = new Trabalho13(0,5);
-		Trabalho13 t6 = new Trabalho13(0,6);
-		Trabalho13 t7 = new Trabalho13(0,7);
-		Trabalho13 t8 = new Trabalho13(0,8);
-		Trabalho13 t9 = new Trabalho13(0,9);
-		Trabalho13 t10 = new Trabalho13(0,10);
-		Trabalho13 t11 = new Trabalho13(0,11);
-		Trabalho13 t12 = new Trabalho13(0,12);
-		Trabalho13 t13 = new Trabalho13(0,13);
-		Trabalho13 t14 = new Trabalho13(0,14);
-		Trabalho13 t15 = new Trabalho13(0,15);
-		Trabalho13 t16 = new Trabalho13(0,16);
-		Trabalho13 t17 = new Trabalho13(0,17);
-		Trabalho13 t18 = new Trabalho13(0,18);
-		Trabalho13 t19 = new Trabalho13(0,19);
-		Trabalho13 t20 = new Trabalho13(0,20);
-		Trabalho13 t21 = new Trabalho13(0,21);
-		Trabalho13 t22 = new Trabalho13(0,22);
-		Trabalho13 t23 = new Trabalho13(0,23);
-		Trabalho13 t24 = new Trabalho13(0,24);
-		Trabalho13 t25 = new Trabalho13(0,25);
-		Trabalho13 t26 = new Trabalho13(0,26);
-		Trabalho13 t27 = new Trabalho13(0,27);
-		Trabalho13 t28 = new Trabalho13(0,28);
-		Trabalho13 t29 = new Trabalho13(0,29);
-		Trabalho13 t30 = new Trabalho13(0,30);
-		Trabalho13 t31 = new Trabalho13(0,31);
-		Trabalho13 t32 = new Trabalho13(0,32);
-		Trabalho13 t33 = new Trabalho13(0,33);
-		Trabalho13 t34 = new Trabalho13(0,34);
-		Trabalho13 t35 = new Trabalho13(0,35);
-		Trabalho13 t36 = new Trabalho13(0,36);
-		Trabalho13 t37 = new Trabalho13(0,37);
-		Trabalho13 t38 = new Trabalho13(0,38);
-		Trabalho13 t39 = new Trabalho13(0,39);
-		Trabalho13 t40 = new Trabalho13(0,40);
-		Trabalho13 t41 = new Trabalho13(0,41);
-		Trabalho13 t42 = new Trabalho13(0,42);
-		Trabalho13 t43 = new Trabalho13(0,43);
-		Trabalho13 t44 = new Trabalho13(0,44);
-		Trabalho13 t45 = new Trabalho13(0,45);
-		Trabalho13 t46 = new Trabalho13(0,46);
-		Trabalho13 t47 = new Trabalho13(0,47);
-		Trabalho13 t48 = new Trabalho13(0,48);
-		Trabalho13 t49 = new Trabalho13(0,49);
-		Trabalho13 t50 = new Trabalho13(0,50);
-		Trabalho13 t51 = new Trabalho13(0,51);
-		Trabalho13 t52 = new Trabalho13(0,52);
-		Trabalho13 t53 = new Trabalho13(0,53);
-		Trabalho13 t54 = new Trabalho13(0,54);
-		Trabalho13 t55 = new Trabalho13(0,55);
-		Trabalho13 t56 = new Trabalho13(0,56);
-		Trabalho13 t57 = new Trabalho13(0,57);
-		Trabalho13 t58 = new Trabalho13(0,58);
-		Trabalho13 t59 = new Trabalho13(0,59);
-		Trabalho13 t60 = new Trabalho13(0,60);
-		Trabalho13 t61 = new Trabalho13(0,61);
-		Trabalho13 t62 = new Trabalho13(0,62);
-		Trabalho13 t63 = new Trabalho13(0,63);
-		Trabalho13 t64 = new Trabalho13(0,64);
-		Trabalho13 t65 = new Trabalho13(0,65);
-		Trabalho13 t66 = new Trabalho13(0,66);
-		Trabalho13 t67 = new Trabalho13(0,67);
-		Trabalho13 t68 = new Trabalho13(0,68);
-		Trabalho13 t69 = new Trabalho13(0,69);
-		Trabalho13 t70 = new Trabalho13(0,70);
-		Trabalho13 t71 = new Trabalho13(0,71);
-		Trabalho13 t72 = new Trabalho13(0,72);
-		Trabalho13 t73 = new Trabalho13(0,73);
-		Trabalho13 t74 = new Trabalho13(0,74);
-		Trabalho13 t75 = new Trabalho13(0,75);
-		Trabalho13 t76 = new Trabalho13(0,76);
-		Trabalho13 t77 = new Trabalho13(0,77);
-		Trabalho13 t78 = new Trabalho13(0,78);
-		Trabalho13 t79 = new Trabalho13(0,79);
-		Trabalho13 t80 = new Trabalho13(0,80);
-		Trabalho13 t81 = new Trabalho13(0,81);
-		Trabalho13 t82 = new Trabalho13(0,82);
-		Trabalho13 t83 = new Trabalho13(0,83);
-		Trabalho13 t84 = new Trabalho13(0,84);
-		Trabalho13 t85 = new Trabalho13(0,85);
-		Trabalho13 t86 = new Trabalho13(0,86);
-		Trabalho13 t87 = new Trabalho13(0,87);
-		Trabalho13 t88 = new Trabalho13(0,88);
-		Trabalho13 t89 = new Trabalho13(0,89);
-		Trabalho13 t90 = new Trabalho13(0,90);
-		Trabalho13 t91 = new Trabalho13(0,91);
-		Trabalho13 t92 = new Trabalho13(0,92);
-		Trabalho13 t93 = new Trabalho13(0,93);
-		Trabalho13 t94 = new Trabalho13(0,94);
-		Trabalho13 t95 = new Trabalho13(0,95);
-		Trabalho13 t96 = new Trabalho13(0,96);
-		Trabalho13 t97 = new Trabalho13(0,97);
-		Trabalho13 t98 = new Trabalho13(0,98);
-		Trabalho13 t99 = new Trabalho13(0,99);
-		Trabalho13 t100 = new Trabalho13(0,100);
+	public long numero;
+	public Lock trava;
+	public int nome;
+	
+	public Trabalho13(int nome){
 		
-		t1.start();
-		t2.start();
-		t3.start();
-		t4.start();
-		t5.start();
-		t6.start();
-		t7.start();
-		t8.start();
-		t9.start();
-		t10.start();
-		t11.start();
-		t12.start();
-		t13.start();
-		t14.start();
-		t15.start();
-		t16.start();
-		t17.start();
-		t18.start();
-		t19.start();
-		t20.start();
-		t21.start();
-		t22.start();
-		t23.start();
-		t24.start();
-		t25.start();
-		t26.start();
-		t27.start();
-		t28.start();
-		t29.start();
-		t30.start();
-		t31.start();
-		t32.start();
-		t33.start();
-		t34.start();
-		t35.start();
-		t36.start();
-		t37.start();
-		t38.start();
-		t39.start();
-		t40.start();
-		t41.start();
-		t42.start();
-		t43.start();
-		t44.start();
-		t45.start();
-		t46.start();
-		t47.start();
-		t48.start();
-		t49.start();
-		t50.start();
-		t51.start();
-		t52.start();
-		t53.start();
-		t54.start();
-		t55.start();
-		t56.start();
-		t57.start();
-		t58.start();
-		t59.start();
-		t60.start();
-		t61.start();
-		t62.start();
-		t63.start();
-		t64.start();
-		t65.start();
-		t66.start();
-		t67.start();
-		t68.start();
-		t69.start();
-		t70.start();
-		t71.start();
-		t72.start();
-		t73.start();
-		t74.start();
-		t75.start();
-		t76.start();
-		t77.start();
-		t78.start();
-		t79.start();
-		t80.start();
-		t81.start();
-		t82.start();
-		t83.start();
-		t84.start();
-		t85.start();
-		t86.start();
-		t87.start();
-		t88.start();
-		t89.start();
-		t90.start();
-		t91.start();
-		t92.start();
-		t93.start();
-		t94.start();
-		t95.start();
-		t96.start();
-		t97.start();
-		t98.start();
-		t99.start();
-		t100.start();
+		this.nome = nome;
+		this.numero = 0;
+		trava = new ReentrantLock();
+	}
+	
+	synchronized void obterFicha(){
+		
+		this.trava.lock();
+		try{
+			numero++;
+			System.out.println("Obtida ficha " + numero + " pela thread " + nome);
+		} finally{
+			this.trava.unlock();
+		}
+	}
+	
+	public static void main(String[] args) {
+
+		int nome = 0;
+		
+		Trabalho13 fichas = new Trabalho13(nome);
+		
+		Thread[] threads = new Thread[50]; 
+		
+		MyThread t = new MyThread(fichas);
+		
+		for (int i = 0; i < 50; i ++){															
+			threads[i] = (new Thread(t));
+			threads[i].start();	
+		}
+		
+		for (int i = 0; i < 50; i ++){
+			try {
+				threads[i].join();	
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }
 
-//Sinceramente a minha implementação do jeito que está por enquanto só difere de tratamento com travas no que se refere a aparência.
+class MyThread implements Runnable {
+
+	Trabalho13 fichas;
+	
+	public MyThread (Trabalho13 fichas){
+		
+		this.fichas = fichas;
+	}
+	
+	public void run() {
+		
+		for (int i = 0; i < 10; i++){
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			fichas.obterFicha();
+		}
+	}
+
+}
+
+
+//Há tratamento com travas na minha solução.
 
 //2
 
@@ -243,4 +93,4 @@ public class Trabalho13 extends Thread{
 // Para um vetor de tamanho N, até K <= N Threads podem manipular elementos do vetor simultaneamente (considere que N é múltiplo de K).
 // O programa não entra em deadlock
 
-//Meu programa anterior segue as propriedades citadas são obedecidas, com exceção da segunda propriedade safety citada, já que a implementação de meu programa contém uma falha nesse sentido.
+//Meu programa anterior segue as propriedades citadas, todas elas são obedecidas.
