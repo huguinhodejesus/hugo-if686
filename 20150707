@@ -1,62 +1,316 @@
+//Com travas
 
-public class Banheiro{
+import java.util.Random;
+import java.util.Vector;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class Banheiro {
+
+	public boolean comHomem;
+	public boolean comMulher;
+	public Vector<String> filaHomem;
+	public Vector<String> homensDentro;
+	public Vector<String> filaMulher;
+	public Vector<String> mulheresDentro;
+	public long contadorHomem;
+	public long contadorMulher;
+	public Lock trava;
+	public Condition variavelCondicional;
 	
+	public Banheiro() {
+		this.comHomem = false;
+		this.comMulher = false;
+		this.filaHomem = new Vector<String>();
+		this.homensDentro = new Vector<String>();
+		this.filaMulher = new Vector<String>();
+		this.mulheresDentro = new Vector<String>();
+		this.contadorHomem = 0;
+		this.contadorMulher = 0;
+		this.trava = new ReentrantLock();
+		this.variavelCondicional = trava.newCondition();
+	}
+	
+	public synchronized long incrementaHomem(){
+		this.contadorHomem++;
+		return this.contadorHomem;
+	}
+	
+	public synchronized long incrementaMulher(){
+		this.contadorMulher++;
+		return this.contadorMulher;
+	}
+	
+	public void entrarHomem(){
+		trava.lock();
+		try {
+			while (this.comMulher){
+				try {
+					variavelCondicional.await();
+				} catch (InterruptedException e) { }
+			}
+			this.homensDentro.add(this.filaHomem.get(0));
+			this.comHomem = true;
+			System.out.println(this.filaHomem.get(0) + " entrou. Tem " + this.homensDentro.size() + " homens dentro.");
+			this.filaHomem.remove(0);
+			variavelCondicional.signalAll();
+		} finally{
+		}
+	}
+	
+	public void sairHomem(){
+		System.out.println(this.homensDentro.get(0)+ " saiu. Tem " + (this.homensDentro.size()-1) + " homens dentro.");
+		this.homensDentro.remove(0);
+		if(this.homensDentro.isEmpty()){
+			this.comHomem = false;
+			trava.unlock();
+		}
+	}
+
+	public void entrarMulher(){
+		trava.lock();
+		try {
+			while (this.comHomem){
+				try {
+					variavelCondicional.await();
+				} catch (InterruptedException e) { }
+			}
+			this.mulheresDentro.add(this.filaMulher.get(0));
+			this.comMulher = true;
+			System.out.println(this.filaMulher.get(0) + " entrou. Tem " + this.mulheresDentro.size()+ " mulheres dentro.");
+			this.filaMulher.remove(0);
+			variavelCondicional.signalAll();
+		} finally {
+		}
+	}
+	
+	public void sairMulher(){
+		System.out.println(this.mulheresDentro.get(0)+ " saiu. Tem " + (this.mulheresDentro.size()-1) + " mulheres dentro.");
+		this.mulheresDentro.remove(0);
+		if(this.mulheresDentro.isEmpty()){
+			this.comMulher = false;
+			trava.unlock();
+		}
+	}
+    
 	public static void main(String[] args) {
-	
-		Homem h1 = new Homem();
-		Mulher m1 = new Mulher();
 		
-		h1.start();
-		m1.start();
+		Banheiro banheiro = new Banheiro();
+						
+		Thread[] threads = new Thread[50]; 
+		
+		MyThread2 t = new MyThread2(banheiro);
+		
+		for (int i = 0; i < 50; i ++){															
+			threads[i] = (new Thread(t));
+			threads[i].start();	
+		}
+		
+		for (int i = 0; i < 50; i ++){
+			try {
+				threads[i].join();	
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+}
+
+class MyThread2 implements Runnable {
+	
+	Banheiro banheiro;
+	
+	MyThread2 (Banheiro banheiro){
+		this.banheiro = banheiro;
+	}
+
+	public void run() {
+		
+		Random gerador = new Random();	
+
+		for (int i = 0; i < 50; i++){
+			
+			boolean quemEntra = gerador.nextBoolean();
+
+			if(quemEntra){
+				long nome = banheiro.incrementaHomem();
+				banheiro.filaHomem.add("Homem " + nome);
+				banheiro.entrarHomem();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				banheiro.sairHomem();
+			} else {
+				long nome = banheiro.incrementaMulher();
+				banheiro.filaMulher.add("Mulher " + nome);
+				banheiro.entrarMulher();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				banheiro.sairMulher();
+			}
+		}
 	}
 	
 }
 
-public class Homem extends Thread{
-		
-		private boolean ocupadoH;
-		private boolean ocupadoM;
-		
-		public void run(){
-				if(!ocupadoM){
-				entrarHomem();
-				}
-		}
-		
-		public void entrarHomem(){
-			ocupadoH = true;
-			System.out.println("Homem entrou no banheiro.");
-			sairHomem();
-		}
-		
-		public void sairHomem(){
-			
-			System.out.println("Homem saiu do banheiro.");
-			
-		}
-	}
+//Com variáveis
 
 
-public class Mulher extends Thread{
-		
-		private boolean ocupadoH;
-		private boolean ocupadoM;
-		
-		public void run(){
-				if(!ocupadoH){
-				entrarMulher();
-				}
+import java.util.Random;
+import java.util.Vector;
+
+public class BanheiroSync {
+
+	public boolean comHomem;
+	public boolean comMulher;
+	public Vector<String> filaHomem;
+	public Vector<String> homensDentro;
+	public Vector<String> filaMulher;
+	public Vector<String> mulheresDentro;
+	public long contadorHomem;
+	public long contadorMulher;
+	
+	public BanheiroSync() {
+		this.comHomem = false;
+		this.comMulher = false;
+		this.filaHomem = new Vector<String>();
+		this.homensDentro = new Vector<String>();
+		this.filaMulher = new Vector<String>();
+		this.mulheresDentro = new Vector<String>();
+		this.contadorHomem = 0;
+		this.contadorMulher = 0;
+	}
+
+	public synchronized long incrementaHomem(){
+		this.contadorHomem++;
+		return this.contadorHomem;
+	}
+
+	public synchronized long incrementaMulher(){
+		this.contadorMulher++;
+		return this.contadorMulher;
+	}
+	
+	public synchronized void entrarHomem(){
+		while (this.comMulher){
+			try {
+				wait();
+			} catch (InterruptedException e){}
 		}
-		
-		public void entrarMulher(){
-			ocupadoM = true;
-			System.out.println("Mulher entrou no banheiro.");
-			sairMulher();
-		}
-		
-		public void sairMulher(){
-			
-			System.out.println("Mulher saiu do banheiro.");
-			
+		this.homensDentro.add(this.filaHomem.get(0));
+		this.comHomem = true;
+		System.out.println(this.filaHomem.get(0) + " entrou. Tem " + this.homensDentro.size() + " homens dentro.");
+		this.filaHomem.remove(0);
+	}
+	
+	public synchronized void sairHomem(){
+		System.out.println(this.homensDentro.get(0) + " saiu. Tem " + (this.homensDentro.size()-1) + " homens dentro.");
+		this.homensDentro.remove(0);
+		if(this.homensDentro.isEmpty()){
+			this.comHomem = false;
+			notifyAll();
 		}
 	}
+	
+	public synchronized void entrarMulher(){
+		while (this.comHomem){
+			try {
+				wait();
+			} catch (InterruptedException e){}
+		}
+		this.mulheresDentro.add(this.filaMulher.get(0));
+		this.comMulher = true;
+		System.out.println(this.filaMulher.get(0) + " entrou. Tem " + this.mulheresDentro.size() + " mulheres dentro.");
+		this.filaMulher.remove(0);
+	}
+	
+	public synchronized void sairMulher(){
+		System.out.println(this.mulheresDentro.get(0) + " saiu. Tem " + (this.mulheresDentro.size()-1) + " mulheres dentro.");
+		this.mulheresDentro.remove(0);
+		if(this.mulheresDentro.isEmpty()){
+			this.comMulher = false;
+			notifyAll();
+		}
+	}
+    
+	public static void main(String[] args) {
+		
+		BanheiroSync banheiro = new BanheiroSync();
+
+		Thread[] threads = new Thread[50]; 
+		
+		MyThread t = new MyThread(banheiro);
+		
+		for (int i = 0; i < 50; i ++){															
+			threads[i] = (new Thread(t));
+			threads[i].start();	
+		}
+		
+		for (int i = 0; i < 50; i ++){
+			try {
+				threads[i].join();	
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+}
+
+class MyThread implements Runnable {
+	
+	BanheiroSync banheiro;
+	
+	MyThread (BanheiroSync banheiro){
+		this.banheiro = banheiro;
+	}
+
+	public void run() {
+		
+		Random gerador = new Random();	
+		
+		for (int i = 0; i < 50; i++){
+			
+			boolean quemEntra = gerador.nextBoolean();
+
+			if(quemEntra){
+				long nome = banheiro.incrementaHomem();
+				banheiro.filaHomem.add("Homem " + nome);
+				banheiro.entrarHomem();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				banheiro.sairHomem();
+			} else {
+				long nome = banheiro.incrementaMulher();
+				banheiro.filaMulher.add("Mulher " + nome);
+				banheiro.entrarMulher();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				banheiro.sairMulher();
+			}
+		}
+	}
+	
+}
+
+// Ambas as soluções não satisfazem exclusão mútua já que usei um boolean pra verificar se o banheiro está ocupado. Caso
+// esteja ocupado há um laço para que se espere que o banheiro fique desocupado.
+//  Não tem starvation porque são usadas filas para entrar no banheiro e um vetor para as pessoas dentro
+// do banheiro. Assim, o primeiro homem ou mulher que entra na fila sempre será o primeiro a entrar e sair do banheiro. 
+
+
