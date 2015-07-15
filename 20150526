@@ -1,65 +1,75 @@
 //Trabalho 12
 
-import java.util.Scanner;
-
-public class MultiplicaMatrizes extends Thread{
-
-	Scanner scanner = new Scanner( System.in );
-	int x;
-	int y;
-	int z;
+public class MultiplicaMatrizes {
 	
-	public void run(){
-		System.out.println("Escolha o valor de X: ");
-		x = scanner.nextInt();
-		System.out.println("Escolha o valor de Y: ");
-		y = scanner.nextInt();
-		System.out.println("Escolha o valor de Z: ");
-		z = scanner.nextInt();
-		
-		int matriz1[][] = new int[x][y];
-		int matriz2[][] = new int[y][z];
-		int matriz3[][] = new int[x][z];
-		
-		for (int i=0; i<x; i++) {
-		      for (int j=0; j<y; j++) {
-		    	  System.out.println("Escolha o valor da posição "+i+" "+j+" da Matriz 1: ");
-		    	  matriz1[i][j] = scanner.nextInt();
-		      }
-		    }
-		for (int i=0; i<y; i++) {
-		      for (int j=0; j<z; j++) {
-		    	  System.out.println("Escolha o valor da posição "+i+" "+j+" da Matriz 2: ");
-		    	  matriz2[i][j] = scanner.nextInt();
-		      }
-		    }
-		
-		for (int i=0; i<x; i++) {
-		      for (int j=0; j<z; j++) {
-		        int sm = 0;
-		        for (int k=0; k<y; k++) {
-		          sm = sm + (matriz1[i][k] * matriz2[k][j]);
-		        }
-		        matriz3[i][j] = sm;
-		      }
-		    }
-		
-		System.out.println("Resultado :");
-		for (int i=0; i<x; i++) {
-			System.out.println(" ");
-		      for (int j=0; j<z; j++) {
-		    	  System.out.print(matriz3 [i][j] + " ");
-		      }
-		    }
-	}
+	static int x = 3;
+	static int y = 4;
+	static int z = 2;
+	static int qtd = x;
 	
+	static int A[][] = new int [x][y];
+	static int B[][] = new int[y][z];
+	static int C[][] = new int [x][z];
+	
+	static Thread[] t = new Multiplicador[qtd];
+
 	public static void main(String[] args) {
-		
-		Thread multiplicador1 = new MultiplicaMatrizes();
-		multiplicador1.start();
-	}
+		int matriz [][] = new int [x][z];
 
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
+				A[i][j] = 1; 
+			}
+		}
+
+		for (int i = 0; i < y; i++) {
+			for (int j = 0; j < z; j++) {
+				B[i][j] = 3; 
+			}
+		}
+
+		for (int i = 0; i < qtd; i++) {
+			t[i] = new Multiplicador(i);
+			t[i].start();
+		}
+
+		for (int i = 0; i < qtd; i++) {
+			try {
+				t[i].join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < z; j++) {
+				System.out.print(C[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+	public static class Multiplicador extends Thread{
+		int n;
+
+		public Multiplicador(int linhaEmA){
+			n = linhaEmA; 
+		}
+
+		public void run(){
+			
+			for (int i = 0; i < z; i++) { 
+				
+				C[n][i] = 0;
+				
+				for (int j = 0; j < y; j++) { 
+					
+					C[n][i] += (A[n][j] * B[j][i]);
+				}
+			}			
+		}
+	}
 }
+
 
 // Exercícios da Aula
 
